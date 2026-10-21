@@ -63,29 +63,37 @@
       pointer-events: none;
     }
 
-    #cursorDot {
-      position: fixed;
-      width: 8px;
-      height: 8px;
-      background: var(--cursor-color);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 0 10px var(--cursor-color), 0 0 20px var(--cursor-color);
-    }
+   :root {
+  --cursor-color: #ffffff;
+}
 
-    .trail-dot {
-      position: fixed;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      background: var(--cursor-color);
-      box-shadow: 0 0 8px var(--cursor-color);
-      animation: fadeOut 0.5s linear forwards;
-    }
+#cursorDot {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: var(--cursor-color);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  box-shadow:
+    0 0 10px #ffffff,
+    0 0 20px #ffffff,
+    0 0 35px rgba(255, 255, 255, 0.8);
+}
 
+.trail-dot {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  box-shadow:
+    0 0 8px #ffffff,
+    0 0 16px rgba(255, 255, 255, 0.8);
+  animation: fadeOut 0.5s linear forwards;
+}
     @keyframes fadeOut {
       0% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
       100% { opacity: 0; transform: translate(-50%, -50%) scale(0.2); }
