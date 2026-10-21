@@ -1297,7 +1297,7 @@
 
             </button>
 
-            <button class="game-card" type="button" id="minecraftGameCard">
+            <button class="game-card coming-soon-card" type="button" id="minecraftGameCard" aria-disabled="true">
               <img class="game-thumbnail" src="mc.png" alt="Minecraft" onerror="this.style.display='none'">
               <div class="game-card-body">
                 <h3>Minecraft</h3>
@@ -1783,7 +1783,7 @@ function openGame(gameKey) {
       gamePlayerFrame.replaceChildren();
       const message = document.createElement('div');
       message.className = 'coming-soon-message';
-      message.textContent = 'Coming soon';
+      message.textContent = 'We’ll fix it tomorrow! Coming soon.';
       gamePlayerFrame.appendChild(message);
       document.getElementById('gameOpenTabBtn').classList.add('hidden');
       document.getElementById('gameFullscreenBtn').classList.add('hidden');
@@ -1791,7 +1791,7 @@ function openGame(gameKey) {
       gamePlayerView.classList.remove('hidden');
     }
 
-    document.getElementById("minecraftGameCard").addEventListener("click", () => openGame("minecraft"));
+    document.getElementById("minecraftGameCard").addEventListener("click", openComingSoon);
     document.getElementById("amongUsGameCard").addEventListener("click", openComingSoon);
     document.getElementById("grannyGameCard").addEventListener("click", () => openGame("granny"));
 
