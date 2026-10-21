@@ -593,6 +593,28 @@
       flex-wrap: wrap;
     }
 
+    .source-select {
+      background: #000;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      max-width: 260px;
+    }
+
+    [data-theme="light"] .source-select {
+      background: #0f172a;
+      border-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .source-select option {
+      background: #000;
+      color: #fff;
+    }
+
     .game-note {
       margin-bottom: 12px;
       padding: 10px 14px;
@@ -831,6 +853,7 @@
             <button class="game-back-btn" id="gameBackBtn" type="button">← Back to Catalog</button>
             <div class="game-player-title" id="gamePlayerTitle">Game Title</div>
             <div class="game-player-actions">
+              <select class="source-select hidden" id="gameSourceSelect" aria-label="Choose game source"></select>
               <button class="game-fullscreen-btn" id="gameReloadBtn" type="button">Reload ↻</button>
               <button class="game-fullscreen-btn" id="gameOpenTabBtn" type="button">Open in new tab ↗</button>
               <button class="game-fullscreen-btn" id="gameFullscreenBtn" type="button">Fullscreen ⛶</button>
@@ -1011,10 +1034,12 @@
         url: "https://www.crazygames.com/embed/space-waves"
       },
       minecraft: {
-        title: "Blockcraft",
-        url: "minecraft/index.html",
-        local: true,
-        note: "Click Play inside the game. WASD move, Space jump, F fly, left click break, right click place, 1-7 pick block, Esc menu. For multiplayer use the Host / Join buttons in the game menu (Esc).",
+        title: "Minecraft",
+        sources: [
+          { label: "Minecraft Classic (official, Mojang)", url: "https://classic.minecraft.net/", local: false },
+          { label: "Blockcraft (my version, always works)", url: "minecraft/index.html", local: true }
+        ],
+        note: "If a source shows 'refused to connect', that site blocks embedding: pick another source in the dropdown or use Open in new tab. Blockcraft always works (WASD, Space, F fly, click to break/place, Esc menu for multiplayer).",
         setup: {
           heading: "Minecraft files are missing",
           steps: [
@@ -1025,10 +1050,13 @@
         }
       },
       granny: {
-        title: "Granny Escape",
-        url: "granny/index.html",
-        local: true,
-        note: "Click inside the game first. WASD / arrows to move, Shift to sneak, E to hide or use the door. Find 3 keys and escape within 5 days.",
+        title: "Granny",
+        sources: [
+          { label: "Granny (GameFlare)", url: "https://www.gameflare.com/embed/granny/", local: false },
+          { label: "Granny Horror (GameFlare)", url: "https://www.gameflare.com/embed/granny-horror/", local: false },
+          { label: "Granny Escape (my version, always works)", url: "granny/index.html", local: true }
+        ],
+        note: "If a source shows 'refused to connect', that site blocks embedding: pick another source in the dropdown or use Open in new tab. Granny Escape always works (WASD, Shift sneak, E hide/use door).",
         setup: {
           heading: "Granny files are missing",
           steps: [
@@ -1100,8 +1128,15 @@
     const gamePlayerTitle = document.getElementById("gamePlayerTitle");
     const gameNote = document.getElementById("gameNote");
 
+    const sourceSelect = document.getElementById("gameSourceSelect");
     let currentGameKey = null;
+    let currentSourceIndex = 0;
     let loadToken = 0;
+
+    function activeSource() {
+      const g = games[currentGameKey];
+      return g.sources ? g.sources[currentSourceIndex] : g;
+    }
 
     function showSetupPanel(game) {
       gamePlayerFrame.replaceChildren();
@@ -1126,8 +1161,9 @@
     }
 
     async function loadGame() {
-      const game = games[currentGameKey];
-      if (!game) return;
+      const base = games[currentGameKey];
+      if (!base) return;
+      const game = Object.assign({}, base, activeSource());
       const token = ++loadToken;
 
       // Local games: check the file exists so a missing file shows instructions, not a 404 page
@@ -1151,7 +1187,20 @@
 
       const game = games[gameKey];
       currentGameKey = gameKey;
+      currentSourceIndex = 0;
       gamePlayerTitle.textContent = game.title;
+
+      sourceSelect.replaceChildren();
+      if (game.sources) {
+        game.sources.forEach((src, i) => {
+          const opt = document.createElement("option");
+          opt.value = String(i);
+          opt.textContent = src.label;
+          sourceSelect.appendChild(opt);
+        });
+        sourceSelect.value = "0";
+      }
+      sourceSelect.classList.toggle("hidden", !(game.sources && game.sources.length > 1));
 
       if (game.note) {
         gameNote.textContent = game.note;
@@ -1187,10 +1236,14 @@
     document.getElementById("grannyGameCard").addEventListener("click", () => openGame("granny"));
     document.getElementById("gameBackBtn").addEventListener("click", closeGame);
     document.getElementById("gameReloadBtn").addEventListener("click", loadGame);
+    sourceSelect.addEventListener("change", () => {
+      currentSourceIndex = Number(sourceSelect.value);
+      loadGame();
+    });
 
     document.getElementById("gameOpenTabBtn").addEventListener("click", () => {
       if (!currentGameKey) return;
-      window.open(games[currentGameKey].url, "_blank", "noopener,noreferrer");
+      window.open(activeSource().url, "_blank", "noopener,noreferrer");
     });
 
     document.getElementById("gameFullscreenBtn").addEventListener("click", async () => {
