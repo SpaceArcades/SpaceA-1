@@ -1,7 +1,4 @@
--- Space Arcade: FNAF 3 + Baldi's Basics
--- The complete HTML is stored below as a Lua long string.
 
-local html = [[
 <!DOCTYPE html>
 
 <html lang="en">
@@ -1271,7 +1268,7 @@ local html = [[
 
             </div>
 
-            <span class="count">7 games</span>
+            <span class="count">9 games</span>
 
           </div>
 
@@ -1331,7 +1328,15 @@ local html = [[
               </div>
             </button>
 
-            <button class="game-card" type="button" id="baldiGameCard">
+            <button class="game-card" type="button" id="fnaf1GameCard">
+  <div class="game-thumbnail" style="display:flex;align-items:center;justify-content:center;font-size:2.6rem;background:#111;color:#fff;">🐻</div>
+  <div class="game-card-body"><h3>FNAF 1</h3></div>
+</button>
+<button class="game-card" type="button" id="fnaf2GameCard">
+  <div class="game-thumbnail" style="display:flex;align-items:center;justify-content:center;font-size:2.6rem;background:#111;color:#fff;">🎭</div>
+  <div class="game-card-body"><h3>FNAF 2</h3></div>
+</button>
+<button class="game-card" type="button" id="baldiGameCard">
               <div class="game-thumbnail" style="display:flex;align-items:center;justify-content:center;font-size:2.6rem;background:#111;color:#fff;">
                 📚
               </div>
@@ -1639,7 +1644,7 @@ local html = [[
       minecraft: { title: "Minecraft", url: "https://mineplay.io/play/26.3" },
       granny: { title: "Granny", url: "https://grannyonline.io/" },
       fnaf3: { title: "FNAF 3", url: "https://games.construct.net/45816/latest" },
-      baldi: { title: "Baldi's Basics", url: "https://games.construct.net/62787/latest" }
+      baldi: { title: "Baldi's Basics", url: "https://www.ufreegames.com/play/baldis-basics-online.html" }
     };
 
     let selectedId = "magma";
@@ -1818,7 +1823,9 @@ function openGame(gameKey) {
     document.getElementById("minecraftGameCard").addEventListener("click", openComingSoon);
     document.getElementById("amongUsGameCard").addEventListener("click", openComingSoon);
     document.getElementById("grannyGameCard").addEventListener("click", () => openGame("granny"));
-    document.getElementById("fnaf3GameCard").addEventListener("click", () => openGame("fnaf3"));
+    document.getElementById("fnaf1GameCard").addEventListener("click", () => openGame("fnaf1"));
+  document.getElementById("fnaf2GameCard").addEventListener("click", () => openGame("fnaf2"));
+  document.getElementById("fnaf3GameCard").addEventListener("click", () => openGame("fnaf3"));
     document.getElementById("baldiGameCard").addEventListener("click", () => openGame("baldi"));
 
     document.getElementById("gameBackBtn").addEventListener("click", closeGame);
@@ -1857,6 +1864,4 @@ function openGame(gameKey) {
 
 </html>
 
-]]
 
-print(html)
