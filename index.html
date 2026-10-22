@@ -1319,6 +1319,15 @@ local html = [[
               </div>
             </button>
 
+            <button class="game-card" type="button" id="baldiGameCard">
+              <div class="game-thumbnail" style="display:flex;align-items:center;justify-content:center;font-size:3rem;background:#111;color:#fff;">
+                📚
+              </div>
+              <div class="game-card-body">
+                <h3>Baldi's Basics</h3>
+              </div>
+            </button>
+
             <button class="game-card" type="button" id="fnaf3GameCard">
               <div class="game-thumbnail" style="display:flex;align-items:center;justify-content:center;font-size:3rem;background:#111;color:#fff;">
                 🐰
@@ -1628,7 +1637,11 @@ local html = [[
       granny: { title: "Granny", url: "https://grannyonline.io/" },
       fnaf3: {
         title: "Five Nights at Freddy's 3",
-        url: "https://kbhgames.com/game/five-nights-freddys-3"
+        url: "https://games.construct.net/45816/latest"
+      },
+      baldi: {
+        title: "Baldi's Basics",
+        url: "https://games.construct.net/62787/latest"
       }
     };
 
@@ -1809,6 +1822,7 @@ function openGame(gameKey) {
     document.getElementById("amongUsGameCard").addEventListener("click", openComingSoon);
     document.getElementById("grannyGameCard").addEventListener("click", () => openGame("granny"));
     document.getElementById("fnaf3GameCard").addEventListener("click", () => openGame("fnaf3"));
+    document.getElementById("baldiGameCard").addEventListener("click", () => openGame("baldi"));
 
     document.getElementById("gameBackBtn").addEventListener("click", closeGame);
 
