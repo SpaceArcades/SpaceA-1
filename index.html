@@ -1,3 +1,6 @@
+-- Space Arcade: FNAF 3 + Baldi's Basics
+-- The complete HTML is stored below as a Lua long string.
+
 local html = [[
 <!DOCTYPE html>
 
@@ -1268,7 +1271,7 @@ local html = [[
 
             </div>
 
-            <span class="count">5 games</span>
+            <span class="count">7 games</span>
 
           </div>
 
@@ -1319,21 +1322,21 @@ local html = [[
               </div>
             </button>
 
+            <button class="game-card" type="button" id="fnaf3GameCard">
+              <div class="game-thumbnail" style="display:flex;align-items:center;justify-content:center;font-size:2.6rem;background:#111;color:#fff;">
+                🎩
+              </div>
+              <div class="game-card-body">
+                <h3>FNAF 3</h3>
+              </div>
+            </button>
+
             <button class="game-card" type="button" id="baldiGameCard">
-              <div class="game-thumbnail" style="display:flex;align-items:center;justify-content:center;font-size:3rem;background:#111;color:#fff;">
+              <div class="game-thumbnail" style="display:flex;align-items:center;justify-content:center;font-size:2.6rem;background:#111;color:#fff;">
                 📚
               </div>
               <div class="game-card-body">
                 <h3>Baldi's Basics</h3>
-              </div>
-            </button>
-
-            <button class="game-card" type="button" id="fnaf3GameCard">
-              <div class="game-thumbnail" style="display:flex;align-items:center;justify-content:center;font-size:3rem;background:#111;color:#fff;">
-                🐰
-              </div>
-              <div class="game-card-body">
-                <h3>Five Nights at Freddy's 3</h3>
               </div>
             </button>
 
@@ -1635,14 +1638,8 @@ local html = [[
       // If the provider blocks iframe embedding, use "Open in new tab".
       minecraft: { title: "Minecraft", url: "https://mineplay.io/play/26.3" },
       granny: { title: "Granny", url: "https://grannyonline.io/" },
-      fnaf3: {
-        title: "Five Nights at Freddy's 3",
-        url: "https://games.construct.net/45816/latest"
-      },
-      baldi: {
-        title: "Baldi's Basics",
-        url: "https://games.construct.net/62787/latest"
-      }
+      fnaf3: { title: "FNAF 3", url: "https://games.construct.net/45816/latest" },
+      baldi: { title: "Baldi's Basics", url: "https://games.construct.net/62787/latest" }
     };
 
     let selectedId = "magma";
