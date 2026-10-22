@@ -1,3 +1,4 @@
+local html = [[
 <!DOCTYPE html>
 
 <html lang="en">
@@ -1318,6 +1319,15 @@
               </div>
             </button>
 
+            <button class="game-card" type="button" id="fnaf3GameCard">
+              <div class="game-thumbnail" style="display:flex;align-items:center;justify-content:center;font-size:3rem;background:#111;color:#fff;">
+                🐰
+              </div>
+              <div class="game-card-body">
+                <h3>Five Nights at Freddy's 3</h3>
+              </div>
+            </button>
+
           </div>
 
         </div>
@@ -1615,7 +1625,11 @@
       // MinePlay is the selected browser-playable Minecraft source.
       // If the provider blocks iframe embedding, use "Open in new tab".
       minecraft: { title: "Minecraft", url: "https://mineplay.io/play/26.3" },
-      granny: { title: "Granny", url: "https://grannyonline.io/" }
+      granny: { title: "Granny", url: "https://grannyonline.io/" },
+      fnaf3: {
+        title: "Five Nights at Freddy's 3",
+        url: "https://kbhgames.com/game/five-nights-freddys-3"
+      }
     };
 
     let selectedId = "magma";
@@ -1794,6 +1808,7 @@ function openGame(gameKey) {
     document.getElementById("minecraftGameCard").addEventListener("click", openComingSoon);
     document.getElementById("amongUsGameCard").addEventListener("click", openComingSoon);
     document.getElementById("grannyGameCard").addEventListener("click", () => openGame("granny"));
+    document.getElementById("fnaf3GameCard").addEventListener("click", () => openGame("fnaf3"));
 
     document.getElementById("gameBackBtn").addEventListener("click", closeGame);
 
@@ -1830,3 +1845,7 @@ function openGame(gameKey) {
 </body>
 
 </html>
+
+]]
+
+print(html)
